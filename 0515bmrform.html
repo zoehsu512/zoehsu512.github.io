@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BMR 計算器</title>
+  <script>
+    function calculateBMR() {
+      const height = parseFloat(document.getElementById("height").value);
+      const weight = parseFloat(document.getElementById("weight").value);
+      const age = parseFloat(document.getElementById("age").value);
+      const male = document.getElementById("s1").checked;
+      const female = document.getElementById("s2").checked;
+
+      let bmr;
+      let status;
+
+      if (male) {
+        bmr = 9.99 * weight + 6.25 * height - 4.92 * age + 5;
+      } else if (female) {
+        bmr = 9.99 * weight + 6.25 * height - 4.92 * age - 161;
+      } else {
+        // No gender selected
+        alert("請選擇性別");
+        return;
+      }
+
+      document.getElementById("result").innerHTML = "您的BMR值為: " + bmr.toFixed(2);
+
+      if (bmr < 1200) {
+        status = "非常低";
+      } else if (bmr >= 1200 && bmr < 1500) {
+        status = "低";
+      } else if (bmr >= 1500 && bmr < 1800) {
+        status = "中等";
+      } else if (bmr >= 1800 && bmr < 2000) {
+        status = "高";
+      } else {
+        status = "非常高";
+      }
+
+      document.getElementById("status").innerHTML = "您的BMR值處於" + status + "範圍內";
+    }
+  </script>
+</head>
+<body>
+  <h1>BMR 計算器</h1>
+  <form>
+    身高（公分） <input type="text" name="height" id="height" /><br />
+    體重（公斤） <input type="text" name="weight" id="weight"/><br />
+    年齡 <input type="text" name="age" id="age"/><br />
+    性別
+    <input type="radio" name="sex" id="s1" value="male" />男
+    <input type="radio" name="sex" id="s2" value="female" />女
+    <br />
+    <button type="button" onclick="calculateBMR()">計算</button>
+  </form>
+
+  <div id="result"></div>
+  <div id="status"></div>
+</body>
+</html>
+
